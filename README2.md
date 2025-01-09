@@ -107,6 +107,7 @@ The versions requirement might have changed to the latest. The later versions ma
 #### Raspberry Pi 5
 - uname -a = \<INSERT SCREENSHOT\>
 - neofetch output = \<INSERT SCREENSHOT\>
+![IMG_8512](https://github.com/user-attachments/assets/22f660f6-c277-406d-bc98-39f3081ce360)
 - apt list = \<link to file\>
 - Technical specs
 	- Boot instructions
@@ -116,7 +117,7 @@ The versions requirement might have changed to the latest. The later versions ma
 
 #### Hailo-8
 - hailortcli fw-control identify = \<INSERT SCREENSHOT\>
-- 
+  
 
 #### Verifying Proper Installation
 Before proceeding, ensure your Raspberry Pi has Raspberry Pi OS installed, with minimally 128 GB and an internet connection. Check if the Hailo chip is properly connected by running this command:
@@ -182,18 +183,17 @@ This code is a combination of both the Roboflow’s speed estimation code (INSER
 python basic_pipelines/detection_supervision_tappas328.py --input resources/video1.mp4 --hef-path resources/yolov8m.hef --use-frame
 ```
 
+<img width="1060" alt="image" src="https://github.com/user-attachments/assets/0f8b4f18-2d02-49ff-9aff-b8cb0f4aa605" />
+
+
 More information about the code is explained as inline documentation i.e. code comments.
 
 ### Overview of Approach
 **The main concept is basically**
-
-1.	Use the existing Hailo pipeline to get detections from the .HEF model instead of using ultralytics.YOLO.
-
-2.	Convert those detections into supervision.Detections objects and process them similarly to how it’s done in the standalone code.
-
-3.	Run ByteTrack for tracking and perform speed estimation on the tracked objects.
-
-4.	Annotate the frames with bounding boxes, labels (including speed), and optionally traces.
+1. Use the existing Hailo pipeline to get detections from the .HEF model instead of using ultralytics.YOLO.
+2. Convert those detections into supervision.Detections objects and process them similarly to how it’s done in the standalone code.
+3. Run ByteTrack for tracking and perform speed estimation on the tracked objects.
+4. Annotate the frames with bounding boxes, labels (including speed), and optionally traces.
 
 **Key Points:**
 - The original supervision code relied on YOLO("yolov8x.pt") to get detections. Here I only rely on the Hailo pipeline’s output (already parsed as detections = roi.get\_objects\_typed(hailo.HAILO\_DETECTION)).
@@ -223,6 +223,49 @@ More information about the code is explained as inline documentation i.e. code c
 ### Mathematical explanation
 The initial speed estimation algorithm is taken from Roboflow’s article [here](https://blog.roboflow.com/estimate-speed-computer-vision/).
 
+Essentially, this code converts a given video file containing a head-on view of a road (which would appear as a polygon) into a "bird's eye" representation of the road. This requires information about the location of the video, such as the width of the road and the actual distance of the road in view of the camera. This information is then linearly mapped and scaled to the pixel count, afterwhich basic arithmetic can be used to calculate the speed of an object (i.e. distance/time or inverse of frame rate).
+
+```python
+# ---------------------- ADDITIONAL CODE FOR SPEED ESTIMATION ------------------------------------
+
+# Define the polygon in source perspective
+SOURCE = np.array([[1252, 787], [2298, 803], [5039, 2159], [-550, 2159]])
+SOURCE = SOURCE.astype(float)
+TARGET_WIDTH = 22 # WIDTH OF THE ROAD IN METERS
+TARGET_HEIGHT = 80 # DISTANCE OF THE ROAD IN METERS
+TARGET = np.array(
+    [
+        [0, 0],
+        [TARGET_WIDTH - 1, 0],
+        [TARGET_WIDTH - 1, TARGET_HEIGHT - 1],
+        [0, TARGET_HEIGHT - 1],
+    ]
+)
+```
+
+#### IMPORTANT!
+- The SOURCE vertices must be manually determined at the point of calibration.
+- As such, this application is unsuitable for usecases where the camera or input source is non-stationary, or used in varying terrains.
+- The Hailo pipeline compresses all videos into a 640x640 resolution, while preserving the original aspect ratio of the input source.
+- This means that the video will have 2 black bars above and below the actual video that is playing, which must be taken into account during the scaling.
+
+## Speed Estimation Benchmarking
+### Power Consumption analysis
+The power consumed by the Hailo Processor can be retrieved with: 
+```shell
+hailortcli measure-power
+```
+
+### Resources Consumption Analysis
+The resources consumed by the Hailo Processor can be retrieved with:
+```shell
+hailortcli monitor
+```
+
+Note that for both use cases, the actual application must be running concurrently in a different terminal window.
+
+## DATAFLOW COMPILER
+TBA
 
 
 
