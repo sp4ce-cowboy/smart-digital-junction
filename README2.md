@@ -41,7 +41,7 @@ This write-up covers the process of setting up the NPU to running a basic real-t
   - [Setting up Dev Environment](#setting-up-dev-environment)
     - [Custom Python Binary](#custom-python-binary)
     - [Entering the Dev Environment](#entering-the-dev-environment)
-  - [Dataflow Compiler Context](#dataflow-compiler-context-1)
+  - [Dataflow Compiler Pipelines](#dataflow-compiler-pipelines)
     - [Manual Pipeline](#manual-pipeline)
     - [Hailo Model Zoo Pipeline](#hailo-model-zoo-pipeline)
   - [Theoretical Limitations](#theoretical-limitations)
@@ -247,24 +247,10 @@ hailortcli monitor
 
 Note that for both use cases, the actual application must be running concurrently in a different terminal window.
 ---
-# Dataflow Compiler Context
-- Dataflow Compiler Context
-	- Setting up Dev environment
-		- Kali works fine but might not
-	- installation of Dfc (3.27) and link to compatible versions on hailo forum
-	- Compiling a new version of python for dfc
-	- Installation of hailo model zoo
-	- Making sense of the dataflow compiler and model zoo
-		- Include archi diagram
-	- Link to custom scripts for model zoo vs DFC (the edge impulse example)
-	- Compiling a basic yolov6m model
-		- Energy restrictions, max is yolov8l
-	- Testing out trainin DFC model and verifying that basic examples work
-
-# Dataflow Compiler
+## Dataflow Compiler Context
 The dataflow compiler (DFC) is the desktop counterpart to Hailo's realtime environment. The DFC is used to convert open source Open Neural Network Exchange form at (ONNX) models into Hailo Executable File format (HEF). A sequence of processes - optimization, quantization and compiling - allow a heavy ONNX model to run on a light RT environment like the Hailo.
 
-## Setting up Dev Environment (from scratch)
+## Setting up Dev Environment
 Setting up the development environment is relatively straightforward compared to setting up the RT environment.
 
 1. Check the correct versions required from \<THIS LINK to the chart\>
@@ -290,7 +276,7 @@ The above instructions are for setting up the environment from scratch. However,
 
 The DFC environment should now be available to use. 
 
-## Dataflow Compiler Context
+## Dataflow Compiler Pipelines
 There are two main pipelines through with ONNX models get converted to HEF models. The first is the Hailo Model Zoo (HMZ) pipeline and the second is the manual pipeline.
 
 The below diagram shows the steps involved behind the scenes in the conversion process.
