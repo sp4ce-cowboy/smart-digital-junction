@@ -319,7 +319,7 @@ The below diagram explains the ML-specifics of the Dataflow compiler.
 
 \<Insert Guan Jie’s diagram\>
 
-# Conclusion & Next Steps
+## Conclusion & Next Steps
 This demarcates the end of this documentation. Through these processes elaborated above, you should be familiar with:
 
 1. Compiling a simple HEF model using the Hailo Model Zoo.
@@ -328,21 +328,25 @@ This demarcates the end of this documentation. Through these processes elaborate
 
 This project has a few natural pathways for extension going forward.
 
-#### Updating firmware & running examples
+### Updating firmware & running examples
 The current HailoRT 4.17 does not fully support the Hailo API. The first step would be to update all components (i.e. HailoRT CLI, DFC, Hailomz, etc) to run with the latest software versions. 
 
 This would entail re-cloning the latest version of the `hailo-rpi5-examples` repository that includes support for the later software and firmware versions.
 
-#### Updating the Speed Estimation program
+### Updating the Speed Estimation program
 By this point, the existing speed estimation program will fail to work. It is therefore necessary to 1) Find the updated `hailo-rpi-examples` code, specifically `detection.py` and 2) combine this with the Roboflow supervision code shown earlier. 
 
 This can be done manually, however, given the limitations of Hailo’s API documentation, it would be better to prompt an LLM with the project context, the detection.py code and the supervision code, and ask the LLM to  merge the two together and afterwards manually sort out any errors that might arise.
 
-#### Advanced Examples
+### Advanced Examples
 You can try to run more advanced programs, like the License Plate Recognition (LPR) and Facial Detection examples, and modify them to fit your specific use case.
 
-#### Advanced Model
+### Advanced Model
 You can try to follow the DFC manual pipeline for any model of your choice, such that you end up with a HEF that you can use with any of the examples above.
+
+### Some Useful Information
+- [Hailo Developer Zone](https://hailo.ai/authorization/?redirect_to=https%3A%2F%2Fhailo.ai%2Fdeveloper-zone%2F)
+- [Ultralytics Repo](https://github.com/ultralytics)
 
 ---
 # drafts below
