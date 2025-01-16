@@ -157,7 +157,7 @@ cython_debug/
 .DS_Store
 
 # hailo-rpi5-examples specific
-venv_hailo_rpi5_examples/*
-resources/*.mp4
-resources/*.hef
-resources/*.so
+#venv_hailo_rpi5_examples/*
+#resources/*.mp4
+#resources/*.hef
+#resources/*.so
