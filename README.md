@@ -66,7 +66,7 @@ This write-up is NOT intended for any user who is intending to
 
 Nonetheless, this write-up will be useful for anyone intending to learn more about the basics of the Hailo-8 processor and running/developing basic applications for this platform (or any other purpose) written from a software engineering perspective.
 
-_Additionally, this write-up is also intended as a handover to the next software engineer that will be working on this project after me, so it will contains some aspects that might not make sense to the general developer._
+_Additionally, this write-up is also intended as a handover to the next software engineer that will be working on this project after me, so it will contain some parts that might not make sense to a general reader._
 
 ### Disclaimer
 The information here is intended to be a progress report, of what worked and what didn’t work, what problems were solved and what weren’t, and how to set up a basic working environment, and how to make sense of this environment in order to develop it further. This documentation is a personalized depiction of the entire process and architecture. It is not intended to replace Hailo’s documentation entirely, and the information here can become outdated depending on the development of Hailo’s software. 
