@@ -263,9 +263,117 @@ hailortcli monitor
 ```
 
 Note that for both use cases, the actual application must be running concurrently in a different terminal window.
+---
+# Dataflow Compiler Context
+- Dataflow Compiler Context
+	- Setting up Dev environment
+		- Kali works fine but might not
+	- installation of Dfc (3.27) and link to compatible versions on hailo forum
+	- Compiling a new version of python for dfc
+	- Installation of hailo model zoo
+	- Making sense of the dataflow compiler and model zoo
+		- Include archi diagram
+	- Link to custom scripts for model zoo vs DFC (the edge impulse example)
+	- Compiling a basic yolov6m model
+		- Energy restrictions, max is yolov8l
+	- Testing out trainin DFC model and verifying that basic examples work
 
-## DATAFLOW COMPILER
-TBA
+# Dataflow Compiler
+The dataflow compiler (DFC) is the desktop counterpart to Hailo's realtime environment. The DFC is used to convert open source Open Neural Network Exchange form at (ONNX) models into Hailo Executable File format (HEF). A sequence of processes - optimization, quantization and compiling - allow a heavy ONNX model to run on a light RT environment like the Hailo.
+
+## Setting up Dev Environment (from scratch)
+Setting up the development environment is relatively straightforward compared to setting up the RT environment.
+
+1. Check the correct versions required from \<THIS LINK to the chart\>
+	1. For the current Raspberry Pi, this is DFC v 3.27.0
+2. Install the appropriate versions from this link
+3. Before following the installation instructions, make sure to have the correct python binary installed. With the appropriate version of python installed, you need to create a virtual environment using the following command:
+	```bash
+	python3.x -m venv NAME_OF_ENV
+	# replace x above with 7, 8, 9, 10 or 11 accordingly
+	# For DFC 3.27, this is python 3.8
+	```
+4. Enter the virtual environment and proceed with the installation of the dataflow compiler following the instructions from the Repo.
+
+### Custom Python Binary
+You might have to install some tools to be able to compile your own python version, there are instructions available for this but GPT-4o/o1 is reliable enough to take you through the step by step process.
+
+### Entering the Dev Environment
+The above instructions are for setting up the environment from scratch. However, the Kali workstation comes with DFC preinstalled. To use it, follow these steps:
+
+1. `cd` into the dfc_3_27 folder on the Desktop
+2. Enter shell with `sh`
+3. Run the virtual environment source command `source bin/activate` 
+
+The DFC environment should now be available to use. 
+
+## Dataflow Compiler Context
+There are two main pipelines through with ONNX models get converted to HEF models. The first is the Hailo Model Zoo (HMZ) pipeline and the second is the manual pipeline.
+
+The below diagram shows the steps involved behind the scenes in the conversion process.
+
+\<INSERT DIAGRAM\>
+
+### Manual Pipeline
+As shown in the above diagram, the manual pipeline involves manually going through each process using a dedicated script for each process - from optimization to quantization to compilation. 
+
+The scripts are included in the \<INSERT LINK TO FOLDER\>, however, take note that these are draft scripts modeled after the EGDE IMPULSE project \<INSERT LINK\>. While the scripts run successfully, the compilation is generally unsuccessful, and the manual pipeline was not used in achieving the final compiled HEF format that we used to benchmark the Hailo Processor.
+
+However, feel free to modify the scripts such that a favourable compilation result is produced.
+
+### Hailo Model Zoo Pipeline
+The HMZ pipeline is basically an abstraction over the manual pipeline. Instead of running each step through a script, each script is minimized into a simple command line command. 
+
+For example:
+- `hailomz optimize`
+- `hailomz compile`
+- `hailomz profile`
+
+These commands allow for the functionality of the original manual pipeline to be compressed into easily executable commands. However, the limitation is that only the hailomz models listed through the `hailomz list` command are available for compilation, and these models cannot be modified in any way.
+
+In order to compile custom models or models outside the supported models list, the manual pipeline must be used.
+
+In the Kali workstation, after entering the DFC virtual environment, the above `hailomz` commands can be executed. The below command compiles a YOLOv8s model:
+
+```bash
+hailomz compile yolov8s
+```
+
+You can find information about each model using the `hailomz info` command. **Take note that the Hailo-8 processor can only support up to YOLOv8m for dense traffic analysis before overheating and terminating the network. **
+
+The compilation process can take up to 24 hours in some cases. The energy settings for the Kali workstation have been modified such that the standby process does not interrupt compilation, but to be sure that the system settings do not override this, run `caffeine` in another terminal.
+
+The output of the compilation process is a ready-to-use HEF file, which can be transferred to the resources folder of the speed estimation code, and invoked with the —hef-path flag as mentioned above.
+
+## Theoretical Limitations
+The below diagram explains the ML-specifics of the Dataflow compiler. 
+
+\<Insert Guan Jie’s diagram\>
+
+# Conclusion & Next Steps
+This demarcates the end of this documentation. Through these processes elaborated above, you should be familiar with:
+
+1. Compiling a simple HEF model using the Hailo Model Zoo.
+2. Running the speed estimation program with the compiled model
+3. Running some power/resources consumption measurements  
+
+This project has a few natural pathways for extension going forward.
+
+#### Updating firmware & running examples
+The current HailoRT 4.17 does not fully support the Hailo API. The first step would be to update all components (i.e. HailoRT CLI, DFC, Hailomz, etc) to run with the latest software versions. 
+
+This would entail re-cloning the latest version of the `hailo-rpi5-examples` repository that includes support for the later software and firmware versions.
+
+#### Updating the Speed Estimation program
+By this point, the existing speed estimation program will fail to work. It is therefore necessary to 1) Find the updated `hailo-rpi-examples` code, specifically `detection.py` and 2) combine this with the Roboflow supervision code shown earlier. 
+
+This can be done manually, however, given the limitations of Hailo’s API documentation, it would be better to prompt an LLM with the project context, the detection.py code and the supervision code, and ask the LLM to  merge the two together and afterwards manually sort out any errors that might arise.
+
+#### Advanced Examples
+You can try to run more advanced programs, like the License Plate Recognition (LPR) and Facial Detection examples, and modify them to fit your specific use case.
+
+#### Advanced Model
+You can try to follow the DFC manual pipeline for any model of your choice, such that you end up with a HEF that you can use with any of the examples above.
 
 
 
