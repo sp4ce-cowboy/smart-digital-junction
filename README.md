@@ -169,11 +169,14 @@ This code is a combination of both the Roboflow’s [speed estimation code](http
 ### Setting up the application
 1. Clone this repo
 2. `cd` into the hailo-rpi5-examples folder
-3. Enter the python virtual environment with `source setup_env.sh`_ 1. REMEMBER THAT SH IS NOT FORWARDS COMPATIBLE WITH ZSH!
-	2. You need to explicitly enter bash if your default shell is zsh
-	3. Only execute the above command after you have entered `sh`
+3. Enter the python virtual environment with `source setup_env.sh`_
+ 	1. REMEMBER THAT SH IS NOT FORWARDS COMPATIBLE WITH ZSH – You need to explicitly enter bash or sh if your default shell is zsh
+	3. Only execute the above command after you have entered the `sh` or `bash` shells
 	4. If this command does not output a Hailo version, then you need to return to the Hailo intialization process and redo it.
-4. run `pip install -r requirements_with_supervision.txt`
+5. run `pip install -r requirements_with_supervision.txt`
+   	1. This file contains specific dependencies that might throw an error if you are using the wrong pip version or the wrong python version.
+   	2. Follow the dependency charts found in the Hailo Developer Zone to find out what python version you need.
+   	3. In our use case, this is Python3.10
 
 ### Running the Application
 1. `cd` into the hailo-rpi5-examples folder
