@@ -8,6 +8,8 @@ This is made possible through a unique combination of hardware and software inte
 
 This write-up covers the process of setting up the NPU to running a basic real-time application on the Hailo processor.
 
+<img width="1034" alt="video" src="https://github.com/user-attachments/assets/40a864d6-fc01-44c8-8fc7-9aa1ee0ac83b" />
+
 ### Table of Contents
 
 - [AI-on-Edge: Smart Digital Junction](#ai-on-edge-smart-digital-junction)
@@ -72,7 +74,7 @@ The information here is intended to be a progress report, of what worked and wha
 It is very important to pay attention to the software package versioning and dependencies to be able to replicate this. As the software provided by the company is in a developmental state, it is prone to changes and version tracking is largely experimental, programs and packages can fail to work with minor changes and it is not clear at this point to what extent these changes are reversible and to what extent these changes can permanently affect the hardware/firmware. This information therefore is provided at an AS-IS basis. Developer discretion is advised.
 
 ## Smart Digital Junction Context
-The aim of this project is to perform real-time monitoring of traffic, to retrieve useful data about traffic flow that can be used as a foundation for further analytic. Object Detection Models with labels restricted to road traffic context can be applied for video analytics frame-by-frame, but real-time monitoring requires a minimum of 25 FPS to be effective. To run an ODM to attain this performance level would require an amortized inference rate of 0.07 seconds per frame. This is possible with a standard Desktop + GPU + CPU Environment, however, incurring large amounts of capital cost and operation costs in the process. 
+The aim of this project is to perform real-time monitoring of traffic, to retrieve useful data about traffic flow that can be used as a foundation for further analytics. Object Detection Models with labels restricted to road traffic context can be applied for video analytics frame-by-frame, but real-time monitoring requires a minimum of 25 FPS to be effective. To run an ODM to attain this performance level would require an amortized inference rate of 0.07 seconds per frame. This is possible with a standard Desktop + GPU + CPU Environment, however, incurring large amounts of capital cost and operation costs in the process. 
 
 Hailo offers a work around by providing specialized hardware and the tools to create specialized software that can run on their hardware. Doing so would drastically minimize the operation costs by reducing the power consumption to a fraction of the initial amount, with negligible loss in inference accuracy and validity. This project is an exploration of the suitability and applicability of Hailo processors to achieve the above mentioned results.
 
