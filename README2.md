@@ -82,21 +82,21 @@ In this documentation is articulated the process of creating an application that
 
 ## Set-up
 ### Setting up the Raspberry Pi and Hailo
-The instructions for setting up the Raspberry Pi 5 and Hailo can be found on Hailo’s GitHub Repo HERE \<INSERT LINK\>. Take note of the environment specifications below before making any permanent installations. 
+The instructions for setting up the Raspberry Pi 5 and Hailo can be found on Hailo’s GitHub Repo [here](https://github.com/hailo-ai/hailo-rpi5-examples/blob/main/doc/install-raspberry-pi5.md#how-to-set-up-raspberry-pi-5-and-hailo). Take note of the environment specifications below before making any permanent installations. 
 
 ### Versions & Environment Specifications
-The versions requirement might have changed to the latest. The later versions may or may not support the application developed with the versioning of the current working environment. These are:
+The versions requirement might have changed to the latest. The later versions may or may not support the application developed with the versioning of the current working environment. To determine the current versions on your system, run the below mentioned terminal commands and compare the output. The output should be the same as attached. If the outputs are not entirely the same, but you are confident that the extent of the difference is irrelevant, you may proceed at your own discretion.
 
 #### Raspberry Pi 5
-- uname -a = \<INSERT SCREENSHOT\>
-- neofetch output = \<INSERT SCREENSHOT\>
+- `uname -a` = \<INSERT SCREENSHOT\>
+- `neofetch` = \<INSERT SCREENSHOT\>
 ![IMG_8512](https://github.com/user-attachments/assets/22f660f6-c277-406d-bc98-39f3081ce360)
-- apt list = \<link to file\>
 - Technical specs
-	- Boot instructions
-	- 128GB SSD
-	- Some useful software installed (screen cap stuff)
-	- Passwords
+    	- Default Boot instructions
+	- 128GB SSD used
+	- Temporary file 
+
+ - A full list of the packages installed are included in the aptPackages.txt file in this repo. To check if you have the same packages
 
 #### Hailo-8
 - hailortcli fw-control identify = \<INSERT SCREENSHOT\>
@@ -109,44 +109,48 @@ Before proceeding, ensure your Raspberry Pi has Raspberry Pi OS installed, with 
 hailortcli fw-control identify
 ```
 
-The output should be identical to the above environment specifications, and any errors must be debugged before you proceed, which can be found here.
+The output should be identical to the above environment specifications, and any errors must be debugged before you proceed, which can be found [here](https://github.com/hailo-ai/hailo-rpi5-examples/blob/main/doc/install-raspberry-pi5.md#troubleshooting).
 
-INSERT LINK TO HAILORT DEBUG
+The above link is just one specific debug scenario that might occur during the initial set up. Feel free to explore Hailo's repos and the Hailo Developer Zone for more debugging help.
 
 ## Hailo Programming Context
-#### Running Basic Examples
+### Running Basic Examples
 
 Once your Pi recognizes the Hailo device, begin by running the sample applications included in the Hailo rpi examples repo. These demonstrate simple object detection tasks.
 
-You can clone the repo at this link \<INSERT LINK\> and follow the instructions to execute the basic object detection model. All the HEF models and video files will be included in the installation.
+#### Cloning the rpi-5 Examples Repository
+
+Hailo hosts a dedicated set of Raspberry Pi 5 examples. To avoid version mismatches, you can clone the repository’s main branch and checkout to the relevant older commit.
+
+However, the simplest way to do this with the current configuration is to clone the repo **directly** from a previous version. You can clone the repo from this [link](https://github.com/hailo-ai/hailo-rpi5-examples/tree/4b6883def9e421c9f08c40fa605dbb69985be0a6).
+
+The commit is dated at 25 August 2024. You can verify this by running the command below:
+```bash
+git show
+```
+This will show you the last commit on the branch, which should be a Pull Request merging dated for 25th August 2024.
+
+Once you have verified that the repo is at the state as mentioned above, follow the instructions in the `basic-pipelines.md` to execute the basic object detection model. All the HEF models and video files will be included in the installation automatically.
 
 Remember to enter the python virtual environment FIRST!
 
-#### Cloning the rpi-5 Examples Repository
+**NOTE: This repo itself is a progression from the previous commit shown above. If you would like, you can simply just clone this repo, and the basic object detection scripts will all be automatically versioned to the appropriated date. However, it would be better to follow the process above to get the hang of working with older versions of git repos as getting used to that process might come in handy later - Hailo's repos are all rapidly developing so you might encounter versioning issues elsewhere not mentioned in this documentation.**
 
-Hailo hosts a dedicated set of Raspberry Pi 5 examples. To avoid version mismatches, clone the repository’s main branch and checkout to the relevant older commit.
 
-For the current set up, the commit is dated at 8 AUGUST 2024 
-(VERIFY THIS)
-
-If you need older or newer versions, use Git’s checkout command to revert to previous commits.
-
-#### Object Detection
+### Object Detection
 
 The repository contains standard object detection example applications. These demonstrate how frames are captured, resized, and run through the Hailo pipeline.
 
 This is also the file that is modified for the smart digital junction use case (which will be explained below)
 
-#### Instance Segmentation, Pose Segmentation, and Advanced Use Cases
+### Instance Segmentation, Pose Segmentation, and Advanced Use Cases
 
 Hailo also publishes more advanced examples like instance segmentation for detecting object masks and pose estimation for tracking keypoints of humans. Investigate these for broader applications, including posture analysis or crowd counting.
 
 ## Speed Estimation
-Refer to the code provided in this repo. \<INSERT LINK\>.
+Refer to the code provided in this repo. The main script that runs the whole speed estimation program is given [here](basic_pipelines/detection_supervision_tappas328.py).
 
-This code is a combination of both the Roboflow’s speed estimation code (INSERT LINK) and Hailo’s default object detection model process.
-
-\<ELABORATE MORE BELOW\>
+This code is a combination of both the Roboflow’s [speed estimation code](https://blog.roboflow.com/estimate-speed-computer-vision/) and Hailo’s default object detection model process.
 
 ### Setting up the application
 1. Clone this repo
@@ -167,7 +171,6 @@ python basic_pipelines/detection_supervision_tappas328.py --input resources/vide
 ```
 
 <img width="1060" alt="image" src="https://github.com/user-attachments/assets/0f8b4f18-2d02-49ff-9aff-b8cb0f4aa605" />
-
 
 More information about the code is explained as inline documentation i.e. code comments.
 
@@ -192,7 +195,7 @@ More information about the code is explained as inline documentation i.e. code c
 - Adjust parameters (FPS, polygon coordinates, thresholds) as needed. How to do this is explain as inline documentation.
 
 ### Practical Explanation of Code
-**What this \<INSERT LINK\> code does:**
+**What the code does:**
 1. Uses the Hailo pipeline to run a .HEF model and get detections.
 2. Converts these detections into supervision.Detections.
 3. Applies the same logic as the original supervision code: polygon filtering, NMS, ByteTrack tracking, speed estimation via coordinates history, and annotations (boxes, labels, speeds).
@@ -253,19 +256,90 @@ The dataflow compiler (DFC) is the desktop counterpart to Hailo's realtime envir
 ## Setting up Dev Environment
 Setting up the development environment is relatively straightforward compared to setting up the RT environment.
 
-1. Check the correct versions required from \<THIS LINK to the chart\>
+<img width="668" alt="image" src="https://github.com/user-attachments/assets/df4a1ce4-6f5e-49f4-9993-da002e6c30bc" />
+
+1. Check the correct versions required from the chart above, which can be found in the documentation within Hailo Developer Zone.
 	1. For the current Raspberry Pi, this is DFC v 3.27.0
-2. Install the appropriate versions from this link
-3. Before following the installation instructions, make sure to have the correct python binary installed. With the appropriate version of python installed, you need to create a virtual environment using the following command:
+2. Install the appropriate versions from the software downloads section in the Hailo Developer Zone.
+	1. You need to create an account first.
+    	2. As we are using an older version, remember to click the "Archived" option and scroll all the way down.
+4. Before following the installation instructions, make sure to have the correct python binary installed. With the appropriate version of python installed, you need to create a virtual environment using the following command:
 	```bash
 	python3.x -m venv NAME_OF_ENV
 	# replace x above with 7, 8, 9, 10 or 11 accordingly
 	# For DFC 3.27, this is python 3.8
 	```
-4. Enter the virtual environment and proceed with the installation of the dataflow compiler following the instructions from the Repo.
+5. Enter the virtual environment and proceed with the installation of the dataflow compiler following the instructions from the Repo.
 
 ### Custom Python Binary
-You might have to install some tools to be able to compile your own python version, there are instructions available for this but GPT-4o/o1 is reliable enough to take you through the step by step process.
+You might have to install some tools to be able to compile your own python version, there are instructions available for this but GPT-4o/o1 is reliable enough to take you through the step by step process. Below is (a part of) the ChatGPT response I used to successfully compile a working python binary.
+
+To install Python 3.8 on Kali Linux and create a virtual environment with it, follow these steps:
+
+**Step 1: Download Python 3.8 Source Code**
+- 1.	Download the Python 3.8 source code:
+
+```bash
+wget https://www.python.org/ftp/python/3.8.17/Python-3.8.17.tgz
+```
+
+- 2.	Extract the downloaded file:
+
+```bash
+tar -xf Python-3.8.17.tgz
+```
+
+
+- 3.	Navigate to the extracted directory:
+
+```bash
+cd Python-3.8.17
+```
+
+**Step 2: Build and Install Python 3.8**
+- 1.	Install the dependencies required for building Python:
+```bash
+sudo apt update
+sudo apt install -y build-essential libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev libffi-dev
+```
+
+
+- 2.	Configure the build:
+
+```bash
+./configure --enable-optimizations
+```
+
+
+- 3.	Build and install Python:
+
+```bash
+make -j$(nproc)
+sudo make altinstall
+```
+
+The altinstall step will install Python 3.8 without overwriting the system’s default Python version.
+
+**Step 3: Create a Virtual Environment with Python 3.8**
+- 1.	Create the virtual environment using Python 3.8:
+
+```bash
+/usr/local/bin/python3.8 -m venv my_python38_env
+```
+
+- 2.	Activate the virtual environment:
+
+```
+source my_python38_env/bin/activate
+```
+
+Now, you have a virtual environment running Python 3.8. You can verify this by running:
+
+```
+python --version
+```
+
+The output should show Python 3.8.17 (or the version you installed). This setup will allow you to run your projects in a Python 3.8 environment without affecting the system’s default Python version.
 
 ### Entering the Dev Environment
 The above instructions are for setting up the environment from scratch. However, the Kali workstation comes with DFC preinstalled. To use it, follow these steps:
@@ -281,14 +355,14 @@ There are two main pipelines through with ONNX models get converted to HEF model
 
 The below diagram shows the steps involved behind the scenes in the conversion process.
 
-\<INSERT DIAGRAM\>
+<img width="693" alt="image" src="https://github.com/user-attachments/assets/c2ce7448-ea13-4cb1-8eb6-4414aefadd72" />
 
 ### Manual Pipeline
 As shown in the above diagram, the manual pipeline involves manually going through each process using a dedicated script for each process - from optimization to quantization to compilation. 
 
-The scripts are included in the \<INSERT LINK TO FOLDER\>, however, take note that these are draft scripts modeled after the EGDE IMPULSE project \<INSERT LINK\>. While the scripts run successfully, the compilation is generally unsuccessful, and the manual pipeline was not used in achieving the final compiled HEF format that we used to benchmark the Hailo Processor.
+The scripts are included in the scripts folder [here](scripts), however, take note that these are draft scripts modeled after the [Edge Impulse project](https://docs.edgeimpulse.com/experts/computer-vision-projects/vehicle-detection-raspberry-pi-ai-kit). While the scripts run successfully, the compilation is generally unsuccessful, and the manual pipeline was not used in achieving the final compiled HEF format that we used to benchmark the Hailo Processor.
 
-However, feel free to modify the scripts such that a favourable compilation result is produced.
+Therefore, feel free to modify the scripts such that a favourable compilation result is produced, if you choose to explore the manual pipeline option.
 
 ### Hailo Model Zoo Pipeline
 The HMZ pipeline is basically an abstraction over the manual pipeline. Instead of running each step through a script, each script is minimized into a simple command line command. 
@@ -317,7 +391,7 @@ The output of the compilation process is a ready-to-use HEF file, which can be t
 ## Theoretical Limitations
 The below diagram explains the ML-specifics of the Dataflow compiler. 
 
-\<Insert Guan Jie’s diagram\>
+![image](https://github.com/user-attachments/assets/96d7b49c-b14d-4be7-b48b-d0545a8a4390)
 
 ## Conclusion & Next Steps
 This demarcates the end of this documentation. Through these processes elaborated above, you should be familiar with:
