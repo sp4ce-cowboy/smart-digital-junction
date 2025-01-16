@@ -8,34 +8,14 @@ This is made possible through a unique combination of hardware and software inte
 
 This write-up covers the process of setting up the NPU to running a basic real-time application on the Hailo processor.
 
-### Target Audience
-This write-up is intended for any user, equipped with a Raspberry 5 Pi microcomputer and a Hailo-8 NPU, intending to develop and run custom ML applications, specifically for real-time use cases. 
-
-More specifically, this write-up is written with the intention of conveying to a developer, proficient in software development (Python3.x.x OOP, Unix, Shell, and ChatGPT) and without any pre-existing ML knowledge, the initialization process of setting up the Hailo processor, and running some basic programs on it, to get the hang of what’s going on and being able to use this as a foundation for further exploratory developments. 
-
-This write-up is NOT intended for any user who is intending to 
-- Write custom python API wrappers over the base C++ code
-- Run multiple models concurrently on the same Hailo-NPU
-- Run any non-ONNX models on the Hailo processor
-- Develop any otherwise specific and unorthodox applications
-
-Nonetheless, this write-up will be useful for anyone intending to learn more about the basics of the Hailo-8 processor and running/developing basic applications for this platform (or any other purpose) written from a software engineering perspective.
-
-_Additionally, this write-up is also intended as a handover to the next software engineer that will be working on this project after me, so it will contains some aspects that might not make sense to the general developer._
-
-### Disclaimer
-The information here is intended to be a progress report, of what worked and what didn’t work, what problems were solved and what weren’t, and how to set up a basic working environment, and how to make sense of this environment in order to develop it further. This documentation is a personalized depiction of the entire process and architecture. It is not intended to replace Hailo’s documentation entirely, and the information here can become outdated depending on the development of Hailo’s software. 
-
-It is very important to pay attention to the software package versioning and dependencies to be able to replicate this. As the software provided by the company is in a developmental state, it is prone to changes and version tracking is largely experimental, programs and packages can fail to work with minor changes and it is not clear at this point to what extent these changes are reversible and to what extent these changes can permanently affect the hardware/firmware. This information therefore is provided at an AS-IS basis. Developer discretion is advised.
-
 ### Table of Contents
 
 - [AI-on-Edge: Smart Digital Junction](#ai-on-edge-smart-digital-junction)
   - [Documentation Overview](#documentation-overview)
     - [Context](#context)
+    - [Table of Contents](#table-of-contents)
     - [Target Audience](#target-audience)
     - [Disclaimer](#disclaimer)
-    - [Table of Contents](#table-of-contents)
   - [Smart Digital Junction Context](#smart-digital-junction-context)
     - [Set-up](#set-up)
       - [Setting up the Raspberry Pi and Hailo](#setting-up-the-raspberry-pi-and-hailo)
@@ -70,6 +50,26 @@ It is very important to pay attention to the software package versioning and dep
   - [Updating the Speed Estimation Program](#updating-the-speed-estimation-program)
   - [Advanced Examples](#advanced-examples)
   - [Advanced Model](#advanced-model)
+
+### Target Audience
+This write-up is intended for any user, equipped with a Raspberry 5 Pi microcomputer and a Hailo-8 NPU, intending to develop and run custom ML applications, specifically for real-time use cases. 
+
+More specifically, this write-up is written with the intention of conveying to a developer, proficient in software development (Python3.x.x OOP, Unix, Shell, and ChatGPT) and without any pre-existing ML knowledge, the initialization process of setting up the Hailo processor, and running some basic programs on it, to get the hang of what’s going on and being able to use this as a foundation for further exploratory developments. 
+
+This write-up is NOT intended for any user who is intending to 
+- Write custom python API wrappers over the base C++ code
+- Run multiple models concurrently on the same Hailo-NPU
+- Run any non-ONNX models on the Hailo processor
+- Develop any otherwise specific and unorthodox applications
+
+Nonetheless, this write-up will be useful for anyone intending to learn more about the basics of the Hailo-8 processor and running/developing basic applications for this platform (or any other purpose) written from a software engineering perspective.
+
+_Additionally, this write-up is also intended as a handover to the next software engineer that will be working on this project after me, so it will contains some aspects that might not make sense to the general developer._
+
+### Disclaimer
+The information here is intended to be a progress report, of what worked and what didn’t work, what problems were solved and what weren’t, and how to set up a basic working environment, and how to make sense of this environment in order to develop it further. This documentation is a personalized depiction of the entire process and architecture. It is not intended to replace Hailo’s documentation entirely, and the information here can become outdated depending on the development of Hailo’s software. 
+
+It is very important to pay attention to the software package versioning and dependencies to be able to replicate this. As the software provided by the company is in a developmental state, it is prone to changes and version tracking is largely experimental, programs and packages can fail to work with minor changes and it is not clear at this point to what extent these changes are reversible and to what extent these changes can permanently affect the hardware/firmware. This information therefore is provided at an AS-IS basis. Developer discretion is advised.
 
 ## Smart Digital Junction Context
 The aim of this project is to perform real-time monitoring of traffic, to retrieve useful data about traffic flow that can be used as a foundation for further analytic. Object Detection Models with labels restricted to road traffic context can be applied for video analytics frame-by-frame, but real-time monitoring requires a minimum of 25 FPS to be effective. To run an ODM to attain this performance level would require an amortized inference rate of 0.07 seconds per frame. This is possible with a standard Desktop + GPU + CPU Environment, however, incurring large amounts of capital cost and operation costs in the process. 
