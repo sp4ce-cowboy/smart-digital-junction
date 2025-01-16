@@ -205,7 +205,7 @@ More information about the code is explained as inline documentation i.e. code c
 
 - The generation of the .HEF file is explained later, but for now set --hef-path to load it directly as the compiled models are available in the resources folder. Once loaded, the pipeline produces detections that can be used directly.
 
-- We store and initialize objects like ByteTrack, PolygonZone, etc (and smth else add later), in GStreamerDetectionApp. Then the logic of speed estimation is integrated inside the callback (app\_callback) where there is access to frame data and detections.
+- We store and initialize objects like ByteTrack, PolygonZone, etc, in GStreamerDetectionApp. Then the logic of speed estimation is integrated inside the callback (app\_callback) where there is access to frame data and detections.
 
 - MAKE SURE supervision, ultralytics, and related dependencies are installed in your environment. All the dependencies are VERSION CORRECTED inside the requirements_with_supervision file. Although here ultralytics is not needed since we’re not using their model, supervision and ByteTrack from supervision are necessary.
 
@@ -282,10 +282,9 @@ Setting up the development environment is relatively straightforward compared to
 	1. For the current Raspberry Pi, this is DFC v 3.27.0
     
 2. Install the appropriate versions from the software downloads section in the Hailo Developer Zone.
-	1. You need to create an account first.
-    	2. As we are using an older version, remember to click the "Archived" option and scroll all the way down.
+	1. You need to create an account first. As we are using an older version, remember to click the "Archived" option and scroll all the way down.
         
-3. Before following the installation instructions, make sure to have the correct python binary installed. With the appropriate version of python installed, you need to create a virtual environment using the following command:
+4. Before following the installation instructions, make sure to have the correct python binary installed. With the appropriate version of python installed, you need to create a virtual environment using the following command:
    
 	```bash
 	python3.x -m venv NAME_OF_ENV
@@ -293,7 +292,7 @@ Setting up the development environment is relatively straightforward compared to
 	# For DFC 3.27, this is python 3.8
 	```
 
-4. Enter the virtual environment and proceed with the installation of the dataflow compiler following the instructions from the Repo.
+5. Enter the virtual environment and proceed with the installation of the dataflow compiler following the instructions from the Repo.
 
 ### Custom Python Binary
 You might have to install some tools to be able to compile your own python version, there are instructions available for this but GPT-4o/o1 is reliable enough to take you through the step by step process. Below is (a part of) the ChatGPT response I used to successfully compile a working python binary.
@@ -450,8 +449,3 @@ You can try to follow the DFC manual pipeline for any model of your choice, such
 - [Hailo Developer Zone](https://hailo.ai/authorization/?redirect_to=https%3A%2F%2Fhailo.ai%2Fdeveloper-zone%2F)
 - [Ultralytics Repo](https://github.com/ultralytics)
 - [My Github Profile](https://github.com/sp4ce-cowboy)
-
----
-
-
-
