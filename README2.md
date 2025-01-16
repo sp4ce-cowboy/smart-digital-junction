@@ -29,64 +29,47 @@ The information here is intended to be a progress report, of what worked and wha
 It is very important to pay attention to the software package versioning and dependencies to be able to replicate this. As the software provided by the company is in a developmental state, it is prone to changes and version tracking is largely experimental, programs and packages can fail to work with minor changes and it is not clear at this point to what extent these changes are reversible and to what extent these changes can permanently affect the hardware/firmware. This information therefore is provided at an AS-IS basis. Developer discretion is advised.
 
 ### Table of Contents
-- Smart Digital Junction Context X
-- Setting up the Raspberry Pi + Hailo X
-	- Pre-existing raspberry Pi set up and link to hailo instructions X
-	- Checking if hailo is properly connected X
-	- Version conditions  X
-	- All other prerequisites for proceeding.  X
-- Hailo Programming Context
-	- Running basic examples X
-	- Cloning the rpi-5 examples repo X
-		- Disclaimer about versioning and etc X
-		- Cloning the correct repo X
-		- Using Git to find older versions of the repo X
-	- Object Detection X
-	- Instance segmentation X
-	- Pose segmentation X
-	- Finding examples of other advanced use cases (cancel)
-- Custom Development
-	- Smart Digital Junction & Speed estimation use case X
-	- Roboflow example & Math behind speed estimation (LATER)
-	- Software engineering explanation X
-	- Include some basic diagrams.  (LATER)
-	- Explanation of Combined roboflow + hailo basic examples and the command line invocation X
-- DOCUMENTATION/REFERENCE OF ACTUAL CODE 
-	- Upload the whole code and add code comments (and also upload the resources folder) X
-	- Explain each part like coloring, etc) X
-	- Process of running (like entering the venv, which python version, sourcing, installation etc) X
-	- command line invocation (and explanation) X
-	- Disclaimer about old code used and newer code not used) X
 
-- Dataflow Compiler Context
-	- Setting up Dev environment
-		- Kali works fine but might not
-	- installation of Dfc (3.27) and link to compatible versions on hailo forum
-	- Compiling a new version of python for dfc
-	- Installation of hailo model zoo
-	- Making sense of the dataflow compiler and model zoo
-		- Include archi diagram
-	- Link to custom scripts for model zoo vs DFC (the edge impulse example)
-	- Compiling a basic yolov6m model
-		- Energy restrictions, max is yolov8l
-	- Testing out trainin DFC model and verifying that basic examples work
-
-
-- Analysing the Run
-	- Power analysis
-	- Resources/CPU monitoring
-	- Hailortcli fw-control —help (everything)
-- Conclusion
-	- Energy saving (and power point slides)
-	- Further applications
-	- Miscellaneous notes
-		- Temp space expansion
-		- 128gb rasp pi
-		- Initial installation unknown but best to install full
-		- Hailo wrapper over c++
-	- Useful links
-		- Versioning board link
-		- Downloading from archived on HDZ
+- [AI-on-Edge: Smart Digital Junction](#ai-on-edge-smart-digital-junction)
+  - [Documentation Overview](#documentation-overview)
+    - [Context](#context)
+    - [Target Audience](#target-audience)
+    - [Disclaimer](#disclaimer)
+    - [Table of Contents](#table-of-contents)
+  - [Smart Digital Junction Context](#smart-digital-junction-context)
+    - [Set-up](#set-up)
+      - [Setting up the Raspberry Pi and Hailo](#setting-up-the-raspberry-pi-and-hailo)
+      - [Versions & Environment Specifications](#versions--environment-specifications)
+        - [Raspberry Pi 5](#raspberry-pi-5)
+        - [Hailo-8](#hailo-8)
+        - [Verifying Proper Installation](#verifying-proper-installation)
+  - [Hailo Programming Context](#hailo-programming-context)
+    - [Running Basic Examples](#running-basic-examples)
+    - [Cloning the rpi-5 Examples Repository](#cloning-the-rpi-5-examples-repository)
+      - [Object Detection](#object-detection)
+      - [Instance Segmentation, Pose Segmentation, and Advanced Use Cases](#instance-segmentation-pose-segmentation-and-advanced-use-cases)
+  - [Speed Estimation](#speed-estimation)
+    - [Setting up the Application](#setting-up-the-application)
+    - [Running the Application](#running-the-application)
+    - [Overview of Approach](#overview-of-approach)
+    - [Practical Explanation of Code](#practical-explanation-of-code)
+    - [Mathematical Explanation](#mathematical-explanation)
+  - [Speed Estimation Benchmarking](#speed-estimation-benchmarking)
+    - [Power Consumption Analysis](#power-consumption-analysis)
+    - [Resources Consumption Analysis](#resources-consumption-analysis)
+- [Dataflow Compiler Context](#dataflow-compiler-context)
+  - [Setting up Dev Environment](#setting-up-dev-environment)
+    - [Custom Python Binary](#custom-python-binary)
+    - [Entering the Dev Environment](#entering-the-dev-environment)
+  - [Dataflow Compiler Context](#dataflow-compiler-context-1)
+    - [Manual Pipeline](#manual-pipeline)
+    - [Hailo Model Zoo Pipeline](#hailo-model-zoo-pipeline)
+  - [Theoretical Limitations](#theoretical-limitations)
+- [Conclusion & Next Steps](#conclusion--next-steps)
+  - [Updating Firmware & Running Examples](#updating-firmware--running-examples)
+  - [Updating the Speed Estimation Program](#updating-the-speed-estimation-program)
+  - [Advanced Examples](#advanced-examples)
+  - [Advanced Model](#advanced-model)
 
 ## Smart Digital Junction Context
 The aim of this project is to perform real-time monitoring of traffic, to retrieve useful data about traffic flow that can be used as a foundation for further analytic. Object Detection Models with labels restricted to road traffic context can be applied for video analytics frame-by-frame, but real-time monitoring requires a minimum of 25 FPS to be effective. To run an ODM to attain this performance level would require an amortized inference rate of 0.07 seconds per frame. This is possible with a standard Desktop + GPU + CPU Environment, however, incurring large amounts of capital cost and operation costs in the process. 
@@ -148,13 +131,13 @@ For the current set up, the commit is dated at 8 AUGUST 2024
 
 If you need older or newer versions, use Git’s checkout command to revert to previous commits.
 
-**Object Detection**
+#### Object Detection
 
 The repository contains standard object detection example applications. These demonstrate how frames are captured, resized, and run through the Hailo pipeline.
 
 This is also the file that is modified for the smart digital junction use case (which will be explained below)
 
-**Instance Segmentation, Pose Segmentation, and Advanced Use Cases**
+#### Instance Segmentation, Pose Segmentation, and Advanced Use Cases
 
 Hailo also publishes more advanced examples like instance segmentation for detecting object masks and pose estimation for tracking keypoints of humans. Investigate these for broader applications, including posture analysis or crowd counting.
 
@@ -375,5 +358,67 @@ You can try to run more advanced programs, like the License Plate Recognition (L
 #### Advanced Model
 You can try to follow the DFC manual pipeline for any model of your choice, such that you end up with a HEF that you can use with any of the examples above.
 
+---
+# drafts below
+
+### Table of Contents
+- Smart Digital Junction Context X
+- Setting up the Raspberry Pi + Hailo X
+	- Pre-existing raspberry Pi set up and link to hailo instructions X
+	- Checking if hailo is properly connected X
+	- Version conditions  X
+	- All other prerequisites for proceeding.  X
+- Hailo Programming Context
+	- Running basic examples X
+	- Cloning the rpi-5 examples repo X
+		- Disclaimer about versioning and etc X
+		- Cloning the correct repo X
+		- Using Git to find older versions of the repo X
+	- Object Detection X
+	- Instance segmentation X
+	- Pose segmentation X
+	- Finding examples of other advanced use cases (cancel)
+- Custom Development
+	- Smart Digital Junction & Speed estimation use case X
+	- Roboflow example & Math behind speed estimation (LATER)
+	- Software engineering explanation X
+	- Include some basic diagrams.  (LATER)
+	- Explanation of Combined roboflow + hailo basic examples and the command line invocation X
+- DOCUMENTATION/REFERENCE OF ACTUAL CODE 
+	- Upload the whole code and add code comments (and also upload the resources folder) X
+	- Explain each part like coloring, etc) X
+	- Process of running (like entering the venv, which python version, sourcing, installation etc) X
+	- command line invocation (and explanation) X
+	- Disclaimer about old code used and newer code not used) X
+
+- Dataflow Compiler Context
+	- Setting up Dev environment
+		- Kali works fine but might not
+	- installation of Dfc (3.27) and link to compatible versions on hailo forum
+	- Compiling a new version of python for dfc
+	- Installation of hailo model zoo
+	- Making sense of the dataflow compiler and model zoo
+		- Include archi diagram
+	- Link to custom scripts for model zoo vs DFC (the edge impulse example)
+	- Compiling a basic yolov6m model
+		- Energy restrictions, max is yolov8l
+	- Testing out trainin DFC model and verifying that basic examples work
+
+
+- Analysing the Run
+	- Power analysis
+	- Resources/CPU monitoring
+	- Hailortcli fw-control —help (everything)
+- Conclusion
+	- Energy saving (and power point slides)
+	- Further applications
+	- Miscellaneous notes
+		- Temp space expansion
+		- 128gb rasp pi
+		- Initial installation unknown but best to install full
+		- Hailo wrapper over c++
+	- Useful links
+		- Versioning board link
+		- Downloading from archived on HDZ
 
 
