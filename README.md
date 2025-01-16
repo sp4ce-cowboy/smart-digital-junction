@@ -1,4 +1,4 @@
-# AI-on-Edge: Smart Digital Junction
+# AI-on-Edge: Traffic Management 
 
 ## Documentation Overview
 ### Context
