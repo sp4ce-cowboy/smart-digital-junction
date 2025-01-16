@@ -88,26 +88,38 @@ The instructions for setting up the Raspberry Pi 5 and Hailo can be found on Hai
 The versions requirement might have changed to the latest. The later versions may or may not support the application developed with the versioning of the current working environment. To determine the current versions on your system, run the below mentioned terminal commands and compare the output. The output should be the same as attached. If the outputs are not entirely the same, but you are confident that the extent of the difference is irrelevant, you may proceed at your own discretion.
 
 #### Raspberry Pi 5
-- `uname -a` = \<INSERT SCREENSHOT\>
-- `neofetch` = \<INSERT SCREENSHOT\>
+```bash
+neofetch
+```
 ![IMG_8512](https://github.com/user-attachments/assets/22f660f6-c277-406d-bc98-39f3081ce360)
-- Technical specs
-    	- Default Boot instructions
-	- 128GB SSD used
-	- Temporary file 
 
- - A full list of the packages installed are included in the aptPackages.txt file in this repo. To check if you have the same packages
+- Technical specs: Default Boot instructions used + 128GB microSD used
+
+ - A full list of the packages installed are included in the **aptPackages.txt file** in this repo. To check if you have the same packages, run the below commands on your device.
+
+1. Create your own enumerated packages list:
+```bash
+touch localAptPackages.txt
+sudo apt list >> localAptPackages.txt
+```
+
+2. Compare the two files. Assuming the aptPackages.txt file is copied to the same directory as above:
+```bash
+diff localAptPackages.txt aptPackages.txt
+```
+
+The output does not have to be exactly the same, but pay attention to the important relevant packages and their versions, for example `pip`. 
 
 #### Hailo-8
-- hailortcli fw-control identify = \<INSERT SCREENSHOT\>
-  
-
-#### Verifying Proper Installation
-Before proceeding, ensure your Raspberry Pi has Raspberry Pi OS installed, with minimally 128 GB and an internet connection. Check if the Hailo chip is properly connected by running this command:
-
-```swift
+```bash
 hailortcli fw-control identify
 ```
+
+<img width="1454" alt="image" src="https://github.com/user-attachments/assets/6c2d508f-9ccd-4122-892b-b11a04be9906" />
+
+
+#### Verifying Proper Installation
+Before proceeding, ensure your Raspberry Pi has Raspberry Pi OS installed, with minimally 128 GB and optionally an internet connection (for access to git). Check if the Hailo chip is properly connected by running the above command. 
 
 The output should be identical to the above environment specifications, and any errors must be debugged before you proceed, which can be found [here](https://github.com/hailo-ai/hailo-rpi5-examples/blob/main/doc/install-raspberry-pi5.md#troubleshooting).
 
@@ -249,6 +261,7 @@ hailortcli monitor
 ```
 
 Note that for both use cases, the actual application must be running concurrently in a different terminal window.
+
 ---
 ## Dataflow Compiler Context
 The dataflow compiler (DFC) is the desktop counterpart to Hailo's realtime environment. The DFC is used to convert open source Open Neural Network Exchange form at (ONNX) models into Hailo Executable File format (HEF). A sequence of processes - optimization, quantization and compiling - allow a heavy ONNX model to run on a light RT environment like the Hailo.
@@ -256,20 +269,26 @@ The dataflow compiler (DFC) is the desktop counterpart to Hailo's realtime envir
 ## Setting up Dev Environment
 Setting up the development environment is relatively straightforward compared to setting up the RT environment.
 
+
 <img width="668" alt="image" src="https://github.com/user-attachments/assets/df4a1ce4-6f5e-49f4-9993-da002e6c30bc" />
+
 
 1. Check the correct versions required from the chart above, which can be found in the documentation within Hailo Developer Zone.
 	1. For the current Raspberry Pi, this is DFC v 3.27.0
+    
 2. Install the appropriate versions from the software downloads section in the Hailo Developer Zone.
 	1. You need to create an account first.
     	2. As we are using an older version, remember to click the "Archived" option and scroll all the way down.
-4. Before following the installation instructions, make sure to have the correct python binary installed. With the appropriate version of python installed, you need to create a virtual environment using the following command:
+        
+3. Before following the installation instructions, make sure to have the correct python binary installed. With the appropriate version of python installed, you need to create a virtual environment using the following command:
+   
 	```bash
 	python3.x -m venv NAME_OF_ENV
 	# replace x above with 7, 8, 9, 10 or 11 accordingly
 	# For DFC 3.27, this is python 3.8
 	```
-5. Enter the virtual environment and proceed with the installation of the dataflow compiler following the instructions from the Repo.
+
+4. Enter the virtual environment and proceed with the installation of the dataflow compiler following the instructions from the Repo.
 
 ### Custom Python Binary
 You might have to install some tools to be able to compile your own python version, there are instructions available for this but GPT-4o/o1 is reliable enough to take you through the step by step process. Below is (a part of) the ChatGPT response I used to successfully compile a working python binary.
@@ -374,7 +393,11 @@ For example:
 
 These commands allow for the functionality of the original manual pipeline to be compressed into easily executable commands. However, the limitation is that only the hailomz models listed through the `hailomz list` command are available for compilation, and these models cannot be modified in any way.
 
-In order to compile custom models or models outside the supported models list, the manual pipeline must be used.
+In order to compile custom models or models outside the supported models list, the manual pipeline must be used. The image below, taken from the [Hailo Model Zoo repo](https://github.com/hailo-ai/hailo_model_zoo) shows some of the popular supported models.
+
+
+<img width="675" alt="image" src="https://github.com/user-attachments/assets/4ddb78d5-ce29-47a4-9e49-c4fc52b91536" />
+
 
 In the Kali workstation, after entering the DFC virtual environment, the above `hailomz` commands can be executed. The below command compiles a YOLOv8s model:
 
@@ -415,74 +438,15 @@ This can be done manually, however, given the limitations of Hailo’s API docum
 ### Advanced Examples
 You can try to run more advanced programs, like the License Plate Recognition (LPR) and Facial Detection examples, and modify them to fit your specific use case.
 
-### Advanced Model
+### Advanced Models
 You can try to follow the DFC manual pipeline for any model of your choice, such that you end up with a HEF that you can use with any of the examples above.
 
 ### Some Useful Information
 - [Hailo Developer Zone](https://hailo.ai/authorization/?redirect_to=https%3A%2F%2Fhailo.ai%2Fdeveloper-zone%2F)
 - [Ultralytics Repo](https://github.com/ultralytics)
+- [My Github Profile](https://github.com/sp4ce-cowboy)
 
 ---
-# drafts below
 
-### Table of Contents
-- Smart Digital Junction Context X
-- Setting up the Raspberry Pi + Hailo X
-	- Pre-existing raspberry Pi set up and link to hailo instructions X
-	- Checking if hailo is properly connected X
-	- Version conditions  X
-	- All other prerequisites for proceeding.  X
-- Hailo Programming Context
-	- Running basic examples X
-	- Cloning the rpi-5 examples repo X
-		- Disclaimer about versioning and etc X
-		- Cloning the correct repo X
-		- Using Git to find older versions of the repo X
-	- Object Detection X
-	- Instance segmentation X
-	- Pose segmentation X
-	- Finding examples of other advanced use cases (cancel)
-- Custom Development
-	- Smart Digital Junction & Speed estimation use case X
-	- Roboflow example & Math behind speed estimation (LATER)
-	- Software engineering explanation X
-	- Include some basic diagrams.  (LATER)
-	- Explanation of Combined roboflow + hailo basic examples and the command line invocation X
-- DOCUMENTATION/REFERENCE OF ACTUAL CODE 
-	- Upload the whole code and add code comments (and also upload the resources folder) X
-	- Explain each part like coloring, etc) X
-	- Process of running (like entering the venv, which python version, sourcing, installation etc) X
-	- command line invocation (and explanation) X
-	- Disclaimer about old code used and newer code not used) X
-
-- Dataflow Compiler Context
-	- Setting up Dev environment
-		- Kali works fine but might not
-	- installation of Dfc (3.27) and link to compatible versions on hailo forum
-	- Compiling a new version of python for dfc
-	- Installation of hailo model zoo
-	- Making sense of the dataflow compiler and model zoo
-		- Include archi diagram
-	- Link to custom scripts for model zoo vs DFC (the edge impulse example)
-	- Compiling a basic yolov6m model
-		- Energy restrictions, max is yolov8l
-	- Testing out trainin DFC model and verifying that basic examples work
-
-
-- Analysing the Run
-	- Power analysis
-	- Resources/CPU monitoring
-	- Hailortcli fw-control —help (everything)
-- Conclusion
-	- Energy saving (and power point slides)
-	- Further applications
-	- Miscellaneous notes
-		- Temp space expansion
-		- 128gb rasp pi
-		- Initial installation unknown but best to install full
-		- Hailo wrapper over c++
-	- Useful links
-		- Versioning board link
-		- Downloading from archived on HDZ
 
 
