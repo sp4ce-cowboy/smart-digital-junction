@@ -161,3 +161,10 @@ cython_debug/
 #resources/*.mp4
 #resources/*.hef
 #resources/*.so
+
+# Local environment and editor files
+venv_hailo_rpi5_examples/
+*.swo
+*.swn
+*.swp
+.DS_Store
