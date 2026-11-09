@@ -26,10 +26,11 @@ An AI-on-edge traffic-monitoring proof of concept at ST Engineering: YOLOv8 on a
 </div>
 
 > [!NOTE]
-> This was written by [Claude](https://docs.anthropic.com/en/docs/claude-code) using my
-> [agentic-repo-analysis](https://github.com/sp4ce-cowboy/agentic-workflows) skill, from the
-> project's code, git history and documentation. The original set-up and hand-over guide is in
-> **[DOCUMENTATION.md](DOCUMENTATION.md)**, and the technical write-up in **[ARCHITECTURE.md](ARCHITECTURE.md)**.
+> This consolidated README page was added by [Claude](https://docs.anthropic.com/en/docs/claude-code)
+> using my [agentic-repo-analysis](https://github.com/sp4ce-cowboy/agentic-workflows) skill, from the
+> project's code, git history and documentation. The original README, my full set-up and
+> hand-over guide, is in **[DOCUMENTATION.md](DOCUMENTATION.md)**. The technical write-up is in
+> **[ARCHITECTURE.md](ARCHITECTURE.md)**.
 
 <p align="center">
   <img width="900" alt="Speed estimation running on the Raspberry Pi 5 with the Hailo-8" src="https://github.com/user-attachments/assets/40a864d6-fc01-44c8-8fc7-9aa1ee0ac83b" />
