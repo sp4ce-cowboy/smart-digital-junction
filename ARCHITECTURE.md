@@ -1,5 +1,10 @@
 # Smart Digital Junction: architecture
 
+> [!NOTE]
+> This architecture write-up was added by [Claude](https://docs.anthropic.com/en/docs/claude-code)
+> using my [agentic-repo-analysis](https://github.com/sp4ce-cowboy/agentic-workflows) skill, from the
+> project's code, git history and documentation.
+
 A technical write-up of the Smart Digital Junction proof of concept (ST Engineering, 2024).
 It draws on the code in this repo, the set-up guide ([DOCUMENTATION.md](DOCUMENTATION.md)),
 the slide decks in [reports/](reports) and the project files. Back to the [README](README.md).
