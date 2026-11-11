@@ -114,7 +114,7 @@ supported models. Details in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Skills shown
 
-| Skill | Where it shows | Docs |
+| Skill | Where it shows (click the links for the code) | Docs |
 |---|---|---|
 | **Edge AI deployment**<br><img alt="Hailo" src="https://img.shields.io/badge/HailoRT-4.17-0A2A5E"> | YOLO models run on the Hailo-8 through HailoRT and TAPPAS. Power and utilisation are measured with `hailortcli`. See [DOCUMENTATION.md › Speed Estimation Benchmarking](DOCUMENTATION.md#speed-estimation-benchmarking) | [Hailo](https://hailo.ai/developer-zone/) |
 | **Video pipelines**<br><img alt="GStreamer" src="https://img.shields.io/badge/GStreamer-1.22-FF3131?logo=gstreamer&logoColor=white"> | Source, scaling, NPU inference, muxing, callback and overlay in one pipeline: [`get_pipeline_string`](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L346-L399) | [GStreamer](https://gstreamer.freedesktop.org/documentation/) |
