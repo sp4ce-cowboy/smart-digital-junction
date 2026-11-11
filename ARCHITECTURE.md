@@ -1,12 +1,13 @@
 # Smart Digital Junction: architecture
 
 > [!NOTE]
-> This architecture write-up was added by [Claude](https://docs.anthropic.com/en/docs/claude-code)
-> using my [agentic-repo-analysis](https://github.com/sp4ce-cowboy/agentic-workflows) skill, from the
+> This architecture write-up was added by
+> [Claude Opus 5.5](https://docs.anthropic.com/en/docs/claude-code) in Nov 2026 using my
+> [agentic-repo-analysis](https://github.com/sp4ce-cowboy/agentic-workflows) skill, from the
 > project's code, git history and documentation.
 
 A technical write-up of the Smart Digital Junction proof of concept (ST Engineering, 2024).
-It draws on the code in this repo, the set-up guide ([DOCUMENTATION.md](DOCUMENTATION.md)),
+It draws on the code in this repo, the set-up guide ([README-ORIGINAL.md](README-ORIGINAL.md)),
 the slide decks in [reports/](reports) and the project files. Back to the [README](README.md).
 
 **Contents:**
@@ -216,7 +217,7 @@ looked tightly coupled. So the environment is pinned and documented:
   is in [`aptPackages.txt`](aptPackages.txt), so a new setup can `diff` against it.
 - **Workstation:** DFC 3.27.0 runs only on Linux x86 and needs Python 3.8, so a custom
   Python is built from source and given its own virtual environment.
-- **Shells:** the set-up script is `sh`/`bash`, not `zsh`. DOCUMENTATION.md flags this.
+- **Shells:** the set-up script is `sh`/`bash`, not `zsh`. README-ORIGINAL.md flags this.
 
 ## 11. Decisions and trade-offs
 

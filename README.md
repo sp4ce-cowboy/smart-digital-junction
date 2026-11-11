@@ -27,11 +27,11 @@ An AI-on-edge traffic-monitoring proof of concept at ST Engineering: YOLOv8 on a
 
 > [!NOTE]
 > This consolidated README page was added by
-> [Claude](https://docs.anthropic.com/en/docs/claude-code) on 9 Nov 2026 using my
+> [Claude Opus 5.5](https://docs.anthropic.com/en/docs/claude-code) in Nov 2026 using my
 > [agentic-repo-analysis](https://github.com/sp4ce-cowboy/agentic-workflows) skill, from the
 > project's code, git history and documentation. The project itself is from Aug 2024 – Jan 2025. The
 > original README, my full set-up and hand-over guide, is in
-> **[DOCUMENTATION.md](DOCUMENTATION.md)**. The technical write-up is in
+> **[README-ORIGINAL.md](README-ORIGINAL.md)**. The technical write-up is in
 > **[ARCHITECTURE.md](ARCHITECTURE.md)**.
 
 <p align="center">
@@ -118,14 +118,14 @@ supported models. Details in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 | Skill | Where it shows (click the links for the code) | Docs |
 |---|---|---|
-| **Edge AI deployment**<br><img alt="Hailo" src="https://img.shields.io/badge/HailoRT-4.17-0A2A5E"> | YOLO models run on the Hailo-8 through HailoRT and TAPPAS. Power and utilisation are measured with `hailortcli`. See [DOCUMENTATION.md › Speed Estimation Benchmarking](DOCUMENTATION.md#speed-estimation-benchmarking) | [Hailo](https://hailo.ai/developer-zone/) |
+| **Edge AI deployment**<br><img alt="Hailo" src="https://img.shields.io/badge/HailoRT-4.17-0A2A5E"> | YOLO models run on the Hailo-8 through HailoRT and TAPPAS. Power and utilisation are measured with `hailortcli`. See [README-ORIGINAL.md › Speed Estimation Benchmarking](README-ORIGINAL.md#speed-estimation-benchmarking) | [Hailo](https://hailo.ai/developer-zone/) |
 | **Video pipelines**<br><img alt="GStreamer" src="https://img.shields.io/badge/GStreamer-1.22-FF3131?logo=gstreamer&logoColor=white"> | Source, scaling, NPU inference, muxing, callback and overlay in one pipeline: [`get_pipeline_string`](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L346-L399) | [GStreamer](https://gstreamer.freedesktop.org/documentation/) |
 | **Multi-object tracking**<br><img alt="supervision" src="https://img.shields.io/badge/supervision-0.20+-6706CE"> | NPU detections turned into `sv.Detections`, filtered by polygon zone and NMS, then tracked with ByteTrack: [callback](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L118-L166), [set-up](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L295-L308) | [ByteTrack in supervision](https://supervision.roboflow.com/latest/trackers/) |
 | **Speed estimation (perspective transform)**<br><img alt="OpenCV" src="https://img.shields.io/badge/OpenCV-4-5C3EE8?logo=opencv&logoColor=white"> | A homography from the camera view to road coordinates in metres: [`ViewTransformer`](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L44-L55). Speed from a one-second track history: [speed](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L167-L189) | [getPerspectiveTransform](https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html) |
 | **Model compilation & quantisation**<br><img alt="Hailo DFC" src="https://img.shields.io/badge/Hailo%20DFC-3.27-0A2A5E"> | ONNX → HAR → quantised HAR → HEF with the Dataflow Compiler: [`modelparser.py`](scripts/modelparser.py), [`modeloptimizer.py`](scripts/modeloptimizer.py), [`modelcompiler.py`](scripts/modelcompiler.py); and `hailomz compile` for Model Zoo models | [Hailo Model Zoo](https://github.com/hailo-ai/hailo_model_zoo) |
 | **Benchmarking & cost analysis** | Three-platform speed benchmark, and power, utilisation and 24/7 operating-cost comparisons: [reports/](reports) | — |
 | **Embedded Linux** | Raspberry Pi OS set-up, pinned package versions ([`aptPackages.txt`](aptPackages.txt)), a custom Python 3.8 build for the compiler, shell set-up scripts | [Raspberry Pi](https://www.raspberrypi.com/documentation/) |
-| **Technical documentation** | A 450-line set-up and hand-over guide: [DOCUMENTATION.md](DOCUMENTATION.md) | — |
+| **Technical documentation** | A 450-line set-up and hand-over guide: [README-ORIGINAL.md](README-ORIGINAL.md) | — |
 
 The pipeline builds on Hailo's [Raspberry Pi 5 examples](https://github.com/hailo-ai/hailo-rpi5-examples) (MIT), pinned to their 25 Aug 2024 commit, and on Roboflow's [speed-estimation method](https://blog.roboflow.com/estimate-speed-computer-vision/).
 
@@ -144,11 +144,11 @@ when it was published rather than how long it took.
 
 ## On my resume
 
+**Skills:** Python · edge AI and NPU deployment · computer vision (YOLO, OpenCV) · multi-object tracking · GStreamer · model quantisation and compilation · ONNX · benchmarking and cost modelling · Raspberry Pi and Linux · technical documentation
+
 - Proved real-time edge AI for traffic-junction monitoring at ST Engineering: YOLOv6n on a Raspberry Pi 5 with a Hailo-8 NPU processed a 90.3 s, 25 fps clip in 90.6 s (real time), against 548 s on the Pi's CPU alone (~6× slower) and 66 s on an NVIDIA workstation GPU.
 - Built a vehicle speed-estimation application in Python on Hailo's GStreamer/TAPPAS pipeline (hailonet → hailofilter → hailomuxer, with a tee to keep full-resolution frames): a per-frame pad-probe callback turns NPU detections into `supervision` objects, filters them by polygon zone and NMS, and tracks them with ByteTrack.
 - Estimated vehicle speeds in km/h with an OpenCV perspective transform from 4 calibrated road points to a 22 m × 80 m bird's-eye plane, and a one-second ring buffer of each track's road position, handling the NPU's 640 × 640 letterboxing.
 - Compiled ONNX models into Hailo executables with the Hailo Dataflow Compiler: graph parsing with explicit start and end nodes, model scripts adding input normalisation and an NMS post-process, integer quantisation against a NumPy calibration set, then compilation; plus the Hailo Model Zoo, for 11 HEF models across detection, segmentation and pose.
 - Measured power and NPU utilisation with `hailortcli` and modelled 24/7 operation at Singapore's tariff: about 2.5 W average power and an estimated 97.7% lower annual energy cost than an RTX 2080 desktop (91.6% lower than a Jetson Orin) at the same YOLOv8m accuracy.
 - Made the stack reproducible on a fast-changing SDK by pinning HailoRT 4.17, TAPPAS 3.28 and DFC 3.27 together (with a custom Python 3.8 build for the compiler), and documented the full toolchain in a 450-line set-up and hand-over guide and 3 slide decks.
-
-**Skills:** Python · edge AI and NPU deployment · computer vision (YOLO, OpenCV) · multi-object tracking · GStreamer · model quantisation and compilation · ONNX · benchmarking and cost modelling · Raspberry Pi and Linux · technical documentation

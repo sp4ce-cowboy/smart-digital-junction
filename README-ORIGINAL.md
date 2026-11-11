@@ -1,3 +1,9 @@
+> [!NOTE]
+> This is the project's original README, from the project itself (Aug 2024 – Jan 2025).
+> Claude Opus 5.5 moved it here in Nov 2026, as part of my
+> [agentic-repo-analysis](https://github.com/sp4ce-cowboy/agentic-workflows) skill, when the
+> consolidated [README](README.md) took its place. It is otherwise unchanged.
+
 # AI-on-Edge: Traffic Management 
 
 ## Documentation Overview
