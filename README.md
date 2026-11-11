@@ -7,16 +7,16 @@ An AI-on-edge traffic-monitoring proof of concept at ST Engineering: YOLOv8 on a
 [Hailo-8](https://hailo.ai/products/ai-accelerators/hailo-8-ai-accelerator/) neural processing unit attached to a
 [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/), instead of a GPU workstation.
 
-[![Python](https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white)](https://docs.python.org/3.10/)
-[![Raspberry Pi 5](https://img.shields.io/badge/Raspberry%20Pi-5-A22846?logo=raspberrypi&logoColor=white)](https://www.raspberrypi.com/documentation/)
-[![HailoRT](https://img.shields.io/badge/HailoRT-4.17-0A2A5E)](https://github.com/hailo-ai/hailort)
-[![TAPPAS](https://img.shields.io/badge/TAPPAS-3.28-0A2A5E)](https://github.com/hailo-ai/tappas)
-[![Hailo DFC](https://img.shields.io/badge/Hailo%20Dataflow%20Compiler-3.27-0A2A5E)](https://hailo.ai/developer-zone/)
-[![GStreamer](https://img.shields.io/badge/GStreamer-1.22-FF3131?logo=gstreamer&logoColor=white)](https://gstreamer.freedesktop.org/documentation/)
-[![YOLOv8](https://img.shields.io/badge/YOLO-v8%20%C2%B7%20v6-111F68)](https://docs.ultralytics.com/models/yolov8/)
-[![supervision](https://img.shields.io/badge/supervision-0.20+-6706CE)](https://supervision.roboflow.com)
-[![OpenCV](https://img.shields.io/badge/OpenCV-4-5C3EE8?logo=opencv&logoColor=white)](https://docs.opencv.org)
-[![ONNX](https://img.shields.io/badge/ONNX-models-005CED?logo=onnx&logoColor=white)](https://onnx.ai)
+[![Python](https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py)
+[![Raspberry Pi 5](https://img.shields.io/badge/Raspberry%20Pi-5-A22846?logo=raspberrypi&logoColor=white)](ARCHITECTURE.md#8-benchmarks)
+[![HailoRT](https://img.shields.io/badge/HailoRT-4.17-0A2A5E)](ARCHITECTURE.md#9-power-utilisation-and-cost)
+[![TAPPAS](https://img.shields.io/badge/TAPPAS-3.28-0A2A5E)](ARCHITECTURE.md#4-the-runtime-pipeline)
+[![Hailo DFC](https://img.shields.io/badge/Hailo%20Dataflow%20Compiler-3.27-0A2A5E)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/scripts/modelcompiler.py)
+[![GStreamer](https://img.shields.io/badge/GStreamer-1.22-FF3131?logo=gstreamer&logoColor=white)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L346-L399)
+[![YOLOv8](https://img.shields.io/badge/YOLO-v8%20%C2%B7%20v6-111F68)](ARCHITECTURE.md#7-the-model-toolchain)
+[![supervision](https://img.shields.io/badge/supervision-0.20+-6706CE)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L118-L166)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4-5C3EE8?logo=opencv&logoColor=white)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L44-L55)
+[![ONNX](https://img.shields.io/badge/ONNX-models-005CED?logo=onnx&logoColor=white)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/scripts/modelparser.py)
 
 ![Commits](https://img.shields.io/badge/commits-24-555?style=flat-square&logo=git&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-1.4k%20lines-555?style=flat-square)
