@@ -16,7 +16,7 @@ An AI-on-edge traffic-monitoring proof of concept at ST Engineering: YOLOv8 on a
 [![YOLOv8](https://img.shields.io/badge/YOLO-v8%20%C2%B7%20v6-111F68)](ARCHITECTURE.md#7-the-model-toolchain)
 [![supervision](https://img.shields.io/badge/supervision-0.20+-6706CE)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L118-L166)
 [![OpenCV](https://img.shields.io/badge/OpenCV-4-5C3EE8?logo=opencv&logoColor=white)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/basic_pipelines/detection_supervision_tappas328.py#L44-L55)
-[![ONNX](https://img.shields.io/badge/ONNX-models-005CED?logo=onnx&logoColor=white)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/scripts/modelparser.py)
+[![ONNX](https://img.shields.io/badge/ONNX-005CED?logo=onnx&logoColor=white)](https://github.com/sp4ce-cowboy/smart-digital-junction/blob/47e7df92e91134a99e2a8a3d308786f91635297a/scripts/modelparser.py)
 
 ![Commits](https://img.shields.io/badge/commits-24-555?style=flat-square&logo=git&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-1.4k%20lines-555?style=flat-square)
