@@ -114,7 +114,7 @@ Models get onto the NPU through the Hailo Dataflow Compiler: ONNX → parsed (HA
 quantised with a calibration set → compiled (HEF). The Hailo Model Zoo is the shortcut for
 supported models. Details in [ARCHITECTURE.md](ARCHITECTURE.md).
 
-## Skills shown
+## Skills covered
 
 | Skill | Where it shows (click the links for the code) | Docs |
 |---|---|---|
